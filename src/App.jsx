@@ -4,6 +4,8 @@ import { CompanyCard } from "./components/CompanyCard";
 import { Loader } from "./components/Loader";
 import "./styles/global.css";
 import "./styles/responsive.css";
+import "./styles/global.css";
+import "./styles/responsive.css";
 
 export default function App() {
   const { result, loading, error, analyze } = useAnalyze();

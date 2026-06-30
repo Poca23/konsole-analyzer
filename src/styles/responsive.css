@@ -1,0 +1,58 @@
+/* ===== MOBILE FIRST ===== */
+/* Base = mobile (< 480px) : géré dans chaque fichier CSS */
+
+/* ===== TABLETTE (768px+) ===== */
+@media (min-width: 768px) {
+  .app {
+    padding: 3rem 2rem;
+  }
+
+  .company-card {
+    padding: 2rem;
+  }
+
+  .card-header {
+    gap: 1.25rem;
+  }
+
+  .card-logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .card-name {
+    font-size: 1.4rem;
+  }
+}
+
+/* ===== DESKTOP (1024px+) ===== */
+@media (min-width: 1024px) {
+  .app {
+    max-width: 720px;
+    padding: 4rem 1rem;
+  }
+
+  .app-title {
+    font-size: 2.2rem;
+  }
+
+  .company-card {
+    padding: 2.5rem;
+  }
+
+  .tags-list {
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.88rem;
+    padding: 0.35rem 0.8rem;
+  }
+}
+
+/* ===== GRAND ÉCRAN (1440px+) ===== */
+@media (min-width: 1440px) {
+  .app {
+    max-width: 800px;
+  }
+}
