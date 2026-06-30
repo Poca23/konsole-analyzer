@@ -1,5 +1,5 @@
-import { isValidUrl, normalizeUrl } from "../functions/src/validator";
-import { analyzeUrl } from "../functions/src/analyzer";
+const { isValidUrl, normalizeUrl } = require("../functions/src/validator");
+const { analyzeUrl } = require("../functions/src/analyzer");
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -7,9 +7,8 @@ const CORS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   Object.entries(CORS).forEach(([k, v]) => res.setHeader(k, v));
-
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" });
@@ -25,4 +24,4 @@ export default async function handler(req, res) {
   } catch {
     return res.status(500).json({ error: "Erreur interne" });
   }
-}
+};
