@@ -1,32 +1,34 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+process.env.GROQ_API_KEY =
+  require("firebase-functions").config().groq?.api_key ||
+  process.env.GROQ_API_KEY;
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
-const logger = require("firebase-functions/logger");
+const functions = require("firebase-functions");
+const { isValidUrl, normalizeUrl } = require("./src/validator");
+const { analyzeUrl } = require("./src/analyzer");
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": process.env.ALLOWED_ORIGIN || "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+exports.analyze = functions.https.onRequest(async (req, res) => {
+  Object.entries(CORS_HEADERS).forEach(([k, v]) => res.set(k, v));
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST")
+    return res.status(405).json({ error: "Method not allowed" });
+
+  const { url } = req.body || {};
+  if (!isValidUrl(url))
+    return res.status(400).json({ error: "URL invalide ou non autorisée" });
+
+  try {
+    const normalized = normalizeUrl(url);
+    const result = await analyzeUrl(normalized);
+    return res.status(200).json(result);
+  } catch (err) {
+    functions.logger.error("analyzeUrl failed", err);
+    return res.status(500).json({ error: "Erreur interne" });
+  }
+});
