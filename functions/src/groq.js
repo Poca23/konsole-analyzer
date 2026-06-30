@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-const MODEL = "llama3-8b-8192";
+const MODEL = "llama-3.1-8b-instant";
 
 function buildPrompt(html, domain) {
   return `Tu es un analyste business. Analyse le HTML suivant du site "${domain}".
