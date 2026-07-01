@@ -4,18 +4,21 @@ const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const MODEL = "llama-3.1-8b-instant";
 
 function buildPrompt(html, domain) {
-  return `Tu es un analyste business. Analyse le HTML suivant du site "${domain}".
+  return `Tu es un analyste business. Analyse le HTML du site "${domain}".
 Réponds UNIQUEMENT avec un JSON valide, sans texte avant ou après.
 
 {
   "nom": "nom de l'entreprise",
-  "description": "1 phrase max décrivant l'activité",
-  "secteur": "SaaS / Fintech / E-commerce / Agence / Autre",
+  "description": "1 phrase décrivant l'activité principale",
+  "secteur": "SaaS / Fintech / E-commerce / Agence / Consulting / Autre",
   "taille": "startup / PME / grande entreprise",
   "langue": "fr / en / autre",
-  "techStack": ["outil1", "outil2"],
-  "motsClesGTM": ["mot1", "mot2"]
+  "techStack": ["technologies détectées dans le HTML : frameworks, outils, plateformes"],
+  "motsClesGTM": ["mots-clés business : b2b, crm, revops, outbound, gtm, automation, sales..."]
 }
+
+Sois précis sur techStack : cherche les scripts, meta tags, liens vers des outils connus.
+Sois précis sur motsClesGTM : cherche les mots du domaine commercial et marketing.
 
 HTML :
 ${html}`;
@@ -45,7 +48,7 @@ async function analyzeWithGroq(html, domain) {
       body: JSON.stringify({
         model: MODEL,
         temperature: 0.2,
-        max_tokens: 400,
+        max_tokens: 600,
         messages: [{ role: "user", content: buildPrompt(html, domain) }],
       }),
     });

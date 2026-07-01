@@ -5,7 +5,13 @@ const TECH_SECTORS = [
   "fintech",
   "martech",
   "devtools",
+  "agence",
+  "agency",
+  "revops",
+  "consulting",
+  "digital",
 ];
+
 const B2B_SIGNALS = [
   "b2b",
   "saas",
@@ -15,12 +21,32 @@ const B2B_SIGNALS = [
   "api",
   "pipeline",
   "crm",
+  "revops",
+  "outbound",
+  "gtm",
+  "go-to-market",
+  "automation",
+];
+
+const ALTERNANCE_STACK = [
+  "react",
+  "node",
+  "javascript",
+  "typescript",
+  "python",
+  "docker",
+  "devops",
+  "ia",
+  "ai",
+  "fullstack",
+  "postgresql",
+  "git",
 ];
 
 function scoreSector(secteur = "") {
   const s = secteur.toLowerCase();
   if (TECH_SECTORS.some((t) => s.includes(t)))
-    return { points: 30, label: "✅ Secteur tech" };
+    return { points: 30, label: "✅ Secteur compatible" };
   return { points: 0, label: null };
 }
 
@@ -47,6 +73,18 @@ function scoreLanguage(langue = "") {
   return { points: 0, label: null };
 }
 
+function scoreTechStack(techStack = []) {
+  const stack = techStack.map((t) => t.toLowerCase());
+  const found = ALTERNANCE_STACK.filter((t) =>
+    stack.some((s) => s.includes(t)),
+  );
+  const points = Math.min(found.length * 5, 20);
+  const label = found.length
+    ? `✅ Stack compatible : ${found.join(", ")}`
+    : null;
+  return { points, label };
+}
+
 function getLabel(score) {
   if (score >= 70) return "🔥 Excellent fit";
   if (score >= 40) return "👍 Bon potentiel";
@@ -63,6 +101,7 @@ function calculateScore(aiData) {
     scoreB2BSignals(aiData),
     scoreSize(aiData.taille),
     scoreLanguage(aiData.langue),
+    scoreTechStack(aiData.techStack),
   ];
 
   const score = Math.min(
