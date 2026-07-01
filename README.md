@@ -3,6 +3,12 @@
 Application web qui analyse un site d'entreprise et génère une fiche enrichie :
 nom, logo, secteur, taille, tech stack, signaux GTM et score de pertinence commerciale (0–100).
 
+Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **Claire Naudin**, développeuse.
+
+À l'issue du test technique, j'ai continué à utiliser cet outil comme outil métier personnel — il me permet de mieux identifier les entreprises les plus adaptées à mon profil avant d'envoyer une candidature.
+
+> **Merci à l'équipe Youno** pour leur autorisation de publication de ce projet. 🙏
+
 **Stack :** React · Vercel Serverless · Groq (LLaMA 3.1) · Clearbit · Vite · Jest · Vitest
 
 ---
@@ -15,14 +21,18 @@ nom, logo, secteur, taille, tech stack, signaux GTM et score de pertinence comme
 
 ## Fonctionnement
 
+```
+
 URL saisie → validation → scraping HTML → enrichissement Clearbit → analyse LLM Groq → scoring → fiche affichée
+
+```
 
 1. L'utilisateur saisit une URL (`youno.fr`, `stripe.com`…)
 2. Le backend valide et normalise l'URL
 3. Le HTML de la page est scrapé (head + début de body, 3 000 chars max)
 4. Clearbit fournit le logo et le nom officiel
 5. Groq (LLaMA 3.1 8B) extrait : secteur, taille, langue, tech stack, signaux GTM
-6. Un score 0–100 est calculé selon 4 critères B2B
+6. Un score 0–100 est calculé selon 5 critères B2B
 7. La fiche est affichée
 
 ---
@@ -43,9 +53,9 @@ konsole-analyzer/ ← 19 dossiers, 67 fichiers
 │ │ ├── scraper.js ← scraping HTML (3 000 chars max)
 │ │ ├── clearbit.js ← logo + nom via Clearbit Autocomplete
 │ │ ├── groq.js ← analyse LLM via Groq API
-│ │ ├── scoring.js ← score 0–100 (4 critères B2B)
+│ │ ├── scoring.js ← score 0–100 (5 critères B2B)
 │ │ └── analyzer.js ← orchestration des modules
-│ └── tests/ ← 6 fichiers — 35 tests Jest
+│ └── **tests**/ ← 6 fichiers — 37 tests Jest
 │
 ├── src/ ← frontend React
 │ ├── components/
@@ -60,7 +70,7 @@ konsole-analyzer/ ← 19 dossiers, 67 fichiers
 │ ├── utils/
 │ │ └── formatUrl.js ← formatUrl + extractDomain
 │ ├── styles/ ← 7 fichiers CSS natif mobile-first
-│ └── tests/ ← 8 fichiers — 29 tests Vitest
+│ └── **tests**/ ← 8 fichiers — 29 tests Vitest
 │
 ├── dist/ ← build de production
 ├── vercel.json ← routing API + SPA
@@ -122,7 +132,7 @@ curl -X POST https://konsole-analyzer-gamma.vercel.app/analyze \
 ## Tests
 
 ```bash
-# Backend (Jest) — 35 tests
+# Backend (Jest) — 37 tests
 cd functions && npx jest
 
 # Frontend (Vitest) — 29 tests
@@ -133,22 +143,23 @@ npm run test
 
 | Outil             | Suites | Tests  |
 | ----------------- | ------ | ------ |
-| Jest — backend    | 6      | 35     |
+| Jest — backend    | 6      | 37     |
 | Vitest — frontend | 8      | 29     |
-| **Total**         | **14** | **64** |
+| **Total**         | **14** | **66** |
 
 ---
 
 ## Scoring
 
-Score de pertinence commerciale (0–100) calculé sur 4 critères :
+Score de pertinence commerciale (0–100) calculé sur 5 critères :
 
-| Critère         | Points max | Détail                            |
-| --------------- | ---------- | --------------------------------- |
-| Secteur tech    | 30         | SaaS, Fintech, Martech, DevTools… |
-| Signaux B2B     | 30         | b2b, saas, crm, pipeline, api…    |
-| Taille          | 20         | startup = 20, PME = 15            |
-| Langue anglaise | 10         | site en `en`                      |
+| Critère         | Points max | Détail                                     |
+| --------------- | ---------- | ------------------------------------------ |
+| Secteur tech    | 30         | SaaS, Fintech, Agence, Consulting…         |
+| Signaux B2B     | 30         | b2b, saas, crm, revops, outbound, gtm…     |
+| Taille          | 20         | startup = 20, PME = 15                     |
+| Langue anglaise | 10         | site en `en`                               |
+| Stack tech      | 20         | React, Node, Docker… ← critère ajouté v1.1 |
 
 | Score | Label               |
 | ----- | ------------------- |
@@ -156,6 +167,18 @@ Score de pertinence commerciale (0–100) calculé sur 4 critères :
 | ≥ 40  | 👍 Bon potentiel    |
 | ≥ 20  | 🤔 Potentiel modéré |
 | < 20  | ❄️ Peu pertinent    |
+
+---
+
+## Tests live — Résultats
+
+| URL         | Nom     | Secteur | Taille            | Score            |
+| ----------- | ------- | ------- | ----------------- | ---------------- |
+| youno.fr    | Youno   | Agence  | startup           | 70–80/100 🔥     |
+| stripe.com  | Stripe  | Fintech | grande entreprise | 40/100           |
+| notion.so   | Notion  | SaaS    | grande entreprise | 40/100           |
+| lemlist.com | lemlist | SaaS    | startup           | 50/100           |
+| localhost   | —       | —       | —                 | Erreur propre ✅ |
 
 ---
 
@@ -208,6 +231,7 @@ git push origin main
 | Conflit CommonJS / ES Modules           | `api/package.json` avec `{"type":"commonjs"}` |
 | `node-fetch` inaccessible depuis `api/` | `npm install node-fetch@2` à la racine        |
 | Modèle `llama3-8b-8192` décommissionné  | Remplacement par `llama-3.1-8b-instant`       |
+| `youno.fr` score trop bas (30/100)      | Ajout critère stack tech + listes élargies    |
 
 ---
 
@@ -232,5 +256,10 @@ git push origin main
 
 ## Auteur
 
-Projet réalisé dans le cadre du processus de recrutement chez Youno.  
-Contact : christian.lim@youno.fr
+**Claire Naudin** — Développeuse
+
+Projet réalisé dans le cadre du processus de recrutement chez [Youno](https://youno.fr), puis utilisé comme outil métier personnel pour identifier les entreprises les plus pertinentes lors de mes recherches d'emploi.
+
+Merci à l'équipe Youno pour leur autorisation de publication. 🙏
+
+Contact : [christian.lim@youno.fr](mailto:christian.lim@youno.fr)
