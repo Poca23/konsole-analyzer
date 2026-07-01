@@ -19,6 +19,76 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 
 ---
 
+## Interface
+
+<div align="center">
+
+### 🖥️ Desktop & 📱 Mobile
+
+<!-- Ajout : déposer les screenshots dans docs/screenshots/devices/desktop/ et docs/screenshots/devices/mobile/ -->
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app.webp" alt="Desktop home" width="400"/></td>
+    <td align="center"><img src="docs/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app_2.webp" alt="Desktop home" width="400"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app.webp" alt="Mobile home" width="200"/></td>
+    <td align="center"><img src="docs/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app_2.webp" alt="Mobile home" width="200"/></td>
+  </tr>
+</table>
+
+</div>
+
+---
+
+## Tests live
+
+<!-- Ajout : déposer les screenshots dans docs/screenshots/analysis/ — formats .png et .webp acceptés -->
+<!-- Pour ajouter une image : copier une ligne <img> et adapter le nom de fichier -->
+
+<div align="center">
+
+![youno.fr](docs/screenshots/analysis/analyse_youno.png)
+![stripe.com](docs/screenshots/analysis/analyze_stripe.png)
+![notion.so](docs/screenshots/analysis/analyze_notion.png)
+![lemlist.com](docs/screenshots/analysis/analyse_lemlist.png)
+![localhost](docs/screenshots/analysis/analyse_localhost.png)
+![gmail.com](docs/screenshots/analysis/analyze_gmail.png)
+![loom.com](docs/screenshots/analysis/analyze_loom.png)
+![favicon](docs/screenshots/analysis/analyse_favicon.png)
+
+</div>
+
+| URL         | Nom     | Secteur | Taille            | Score            |
+| ----------- | ------- | ------- | ----------------- | ---------------- |
+| youno.fr    | Youno   | Agence  | startup           | 70–80/100        |
+| stripe.com  | Stripe  | Fintech | grande entreprise | 40/100           |
+| notion.so   | Notion  | SaaS    | grande entreprise | 85/100           |
+| lemlist.com | lemlist | SaaS    | startup           | 100/100          |
+| localhost   | —       | —       | —                 | Erreur propre ✅ |
+
+---
+
+## Tests unitaires
+
+<div align="center">
+
+| Outil             | Suites | Tests  |
+| ----------------- | ------ | ------ |
+| Jest — backend    | 6      | 37     |
+| Vitest — frontend | 8      | 29     |
+| **Total**         | **14** | **66** |
+
+<!-- Ajout : déposer les screenshots dans docs/screenshots/tests/ -->
+
+<img src="docs/screenshots/tests/tests_backend.png" alt="Tests backend" width="600"/>
+<img src="docs/screenshots/tests/tests_frontend.png" alt="Tests frontend" width="600"/>
+
+</div>
+
+---
+
 ## Fonctionnement
 
 ```
@@ -41,7 +111,7 @@ URL saisie → validation → scraping HTML → enrichissement Clearbit → anal
 
 ```
 
-konsole-analyzer/ ← 19 dossiers, 67 fichiers
+konsole-analyzer/
 │
 ├── api/
 │ ├── analyze.js ← endpoint Vercel Serverless
@@ -49,31 +119,23 @@ konsole-analyzer/ ← 19 dossiers, 67 fichiers
 │
 ├── functions/ ← modules backend + tests Jest
 │ ├── src/
-│ │ ├── validator.js ← validation et normalisation d'URL
-│ │ ├── scraper.js ← scraping HTML (3 000 chars max)
-│ │ ├── clearbit.js ← logo + nom via Clearbit Autocomplete
-│ │ ├── groq.js ← analyse LLM via Groq API
-│ │ ├── scoring.js ← score 0–100 (5 critères B2B)
-│ │ └── analyzer.js ← orchestration des modules
+│ │ ├── validator.js
+│ │ ├── scraper.js
+│ │ ├── clearbit.js
+│ │ ├── groq.js
+│ │ ├── scoring.js
+│ │ └── analyzer.js
 │ └── **tests**/ ← 6 fichiers — 37 tests Jest
 │
 ├── src/ ← frontend React
 │ ├── components/
-│ │ ├── SearchBar.jsx
-│ │ ├── CompanyCard.jsx
-│ │ ├── TechStack.jsx
-│ │ ├── GtmSignals.jsx
-│ │ ├── ScorePanel.jsx
-│ │ └── Loader.jsx
 │ ├── hooks/
-│ │ └── useAnalyze.js ← appel API + états loading/error/result
 │ ├── utils/
-│ │ └── formatUrl.js ← formatUrl + extractDomain
-│ ├── styles/ ← 7 fichiers CSS natif mobile-first
+│ ├── styles/ ← 9 fichiers CSS natif mobile-first
 │ └── **tests**/ ← 8 fichiers — 29 tests Vitest
 │
-├── dist/ ← build de production
-├── vercel.json ← routing API + SPA
+├── dist/
+├── vercel.json
 └── .env.local ← non commité
 
 ```
@@ -92,20 +154,13 @@ konsole-analyzer/ ← 19 dossiers, 67 fichiers
 ## Installation
 
 ```bash
-# 1. Cloner
 git clone https://github.com/Poca23/konsole-analyzer.git
 cd konsole-analyzer
-
-# 2. Dépendances frontend + racine
 npm install
-
-# 3. Dépendances backend
 cd functions && npm install && cd ..
 ```
 
 ### Configurer `.env.local`
-
-Créer `.env.local` à la racine :
 
 ```
 VITE_API_URL=https://konsole-analyzer-gamma.vercel.app
@@ -118,10 +173,8 @@ VITE_API_URL=https://konsole-analyzer-gamma.vercel.app
 ## Développement local
 
 ```bash
-# Frontend
 npm run dev
 
-# Test API en production
 curl -X POST https://konsole-analyzer-gamma.vercel.app/analyze \
   -H "Content-Type: application/json" \
   -d '{"url": "youno.fr"}'
@@ -132,26 +185,18 @@ curl -X POST https://konsole-analyzer-gamma.vercel.app/analyze \
 ## Tests
 
 ```bash
-# Backend (Jest) — 37 tests
+# Backend (Jest)
 cd functions && npx jest
 
-# Frontend (Vitest) — 29 tests
+# Frontend (Vitest)
 npm run test
 ```
 
 > Tous les tests sont écrits avant le code (TDD strict).
 
-| Outil             | Suites | Tests  |
-| ----------------- | ------ | ------ |
-| Jest — backend    | 6      | 37     |
-| Vitest — frontend | 8      | 29     |
-| **Total**         | **14** | **66** |
-
 ---
 
 ## Scoring
-
-Score de pertinence commerciale (0–100) calculé sur 5 critères :
 
 | Critère         | Points max | Détail                                     |
 | --------------- | ---------- | ------------------------------------------ |
@@ -170,29 +215,12 @@ Score de pertinence commerciale (0–100) calculé sur 5 critères :
 
 ---
 
-## Tests live — Résultats
-
-| URL         | Nom     | Secteur | Taille            | Score            |
-| ----------- | ------- | ------- | ----------------- | ---------------- |
-| youno.fr    | Youno   | Agence  | startup           | 70–80/100 🔥     |
-| stripe.com  | Stripe  | Fintech | grande entreprise | 40/100           |
-| notion.so   | Notion  | SaaS    | grande entreprise | 40/100           |
-| lemlist.com | lemlist | SaaS    | startup           | 50/100           |
-| localhost   | —       | —       | —                 | Erreur propre ✅ |
-
----
-
 ## Déploiement
 
-L'app se déploie automatiquement sur Vercel à chaque push sur `main`.
-
-Pour un nouveau déploiement manuel :
+Push sur `main` → déploiement automatique Vercel.
 
 ```bash
-# 1. Ajouter GROQ_API_KEY dans Vercel Dashboard → Environment Variables
-# 2. Rebuild
 npm run build
-# 3. Push sur main
 git push origin main
 ```
 
@@ -258,8 +286,8 @@ git push origin main
 
 **Claire Naudin** — Développeuse
 
+🔗 [portfolio-cnd.netlify.app](https://portfolio-cnd.netlify.app)
+
 Projet réalisé dans le cadre du processus de recrutement chez [Youno](https://youno.fr), puis utilisé comme outil métier personnel pour identifier les entreprises les plus pertinentes lors de mes recherches d'emploi.
 
 Merci à l'équipe Youno pour leur autorisation de publication. 🙏
-
-Contact : [christian.lim@youno.fr](mailto:christian.lim@youno.fr)
