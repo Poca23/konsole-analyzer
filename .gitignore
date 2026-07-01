@@ -25,4 +25,4 @@ dist-ssr
 
 /docs
 
-.env.local
+.env.local.vercel
