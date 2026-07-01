@@ -25,16 +25,16 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 
 ### 🖥️ Desktop & 📱 Mobile
 
-<!-- Ajout : déposer les screenshots dans docs/screenshots/devices/desktop/ et docs/screenshots/devices/mobile/ -->
+<!-- Ajout : déposer les screenshots dans src/assets/screenshots/devices/desktop/ et src/assets/screenshots/devices/mobile/ -->
 
 <table>
   <tr>
-    <td align="center"><img src="docs/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app.webp" alt="Desktop home" width="400"/></td>
-    <td align="center"><img src="docs/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app_2.webp" alt="Desktop home" width="400"/></td>
+    <td align="center"><img src="src/assets/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app.webp" alt="Desktop home" width="400"/></td>
+    <td align="center"><img src="src/assets/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app_2.webp" alt="Desktop home" width="400"/></td>
   </tr>
   <tr>
-    <td align="center"><img src="docs/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app.webp" alt="Mobile home" width="200"/></td>
-    <td align="center"><img src="docs/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app_2.webp" alt="Mobile home" width="200"/></td>
+    <td align="center"><img src="src/assets/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app.webp" alt="Mobile home" width="200"/></td>
+    <td align="center"><img src="src/assets/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app_2.webp" alt="Mobile home" width="200"/></td>
   </tr>
 </table>
 
@@ -44,19 +44,19 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 
 ## Tests live
 
-<!-- Ajout : déposer les screenshots dans docs/screenshots/analysis/ — formats .png et .webp acceptés -->
+<!-- Ajout : déposer les screenshots dans src/assets/screenshots/analysis/ — formats .png et .webp acceptés -->
 <!-- Pour ajouter une image : copier une ligne <img> et adapter le nom de fichier -->
 
 <div align="center">
 
-![youno.fr](docs/screenshots/analysis/analyse_youno.png)
-![stripe.com](docs/screenshots/analysis/analyze_stripe.png)
-![notion.so](docs/screenshots/analysis/analyze_notion.png)
-![lemlist.com](docs/screenshots/analysis/analyse_lemlist.png)
-![localhost](docs/screenshots/analysis/analyse_localhost.png)
-![gmail.com](docs/screenshots/analysis/analyze_gmail.png)
-![loom.com](docs/screenshots/analysis/analyze_loom.png)
-![favicon](docs/screenshots/analysis/analyse_favicon.png)
+![youno.fr](src/assets/screenshots/analysis/analyse_youno.png)
+![stripe.com](src/assets/screenshots/analysis/analyze_stripe.png)
+![notion.so](src/assets/screenshots/analysis/analyze_notion.png)
+![lemlist.com](src/assets/screenshots/analysis/analyse_lemlist.png)
+![localhost](src/assets/screenshots/analysis/analyse_localhost.png)
+![gmail.com](src/assets/screenshots/analysis/analyze_gmail.png)
+![loom.com](src/assets/screenshots/analysis/analyze_loom.png)
+![favicon](src/assets/screenshots/analysis/analyse_favicon.png)
 
 </div>
 
@@ -80,10 +80,10 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 | Vitest — frontend | 8      | 29     |
 | **Total**         | **14** | **66** |
 
-<!-- Ajout : déposer les screenshots dans docs/screenshots/tests/ -->
+<!-- Ajout : déposer les screenshots dans src/assets/screenshots/tests/ -->
 
-<img src="docs/screenshots/tests/tests_backend.png" alt="Tests backend" width="600"/>
-<img src="docs/screenshots/tests/tests_frontend.png" alt="Tests frontend" width="600"/>
+<img src="src/assets/screenshots/tests/tests_backend.png" alt="Tests backend" width="600"/>
+<img src="src/assets/screenshots/tests/tests_frontend.png" alt="Tests frontend" width="600"/>
 
 </div>
 
