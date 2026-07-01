@@ -19,6 +19,17 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 
 ---
 
+## Organisation
+
+<div align="center">
+<img src="src/assets/screenshots/organisation/miro_planning_agile.png" alt="Planning Miro" width="600"/>
+<img src="src/assets/screenshots/organisation/terminal.png" alt="Terminal" width="600"/>
+<img src="src/assets/screenshots/organisation/groq_activity_requests_tokens.png" alt="Groq activité" width="600"/>
+<img src="src/assets/screenshots/organisation/groq_limit_llama-3.1-8b-instant.png" alt="Groq limites" width="600"/>
+</div>
+
+---
+
 ## Interface
 
 <div align="center">
@@ -224,6 +235,12 @@ npm run build
 git push origin main
 ```
 
+---
+
+<div align="center">
+<img src="src/assets/screenshots/deployement/vercel_deployements.png" alt="Vercel déploiements" width="600"/>
+<img src="src/assets/screenshots/deployement/deploy_project_vercel.png" alt="Vercel projet" width="600"/>
+</div>
 ---
 
 ## Sécurité
