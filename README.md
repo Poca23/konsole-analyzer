@@ -304,7 +304,7 @@ git push origin main
 
 <div align="center">
 <img src="src/assets/screenshots/organisation/miro_planning_agile.png" alt="Planning Miro" width="600"/>
-<img src="src/assets/screenshots/organisation/terminal.png" alt="Terminal" width="600"/>
+<img src="src/assets/screenshots/organisation/terminal.png" alt="Terminal" width="250"/>
 <img src="src/assets/screenshots/organisation/groq_activity_requests_tokens.png" alt="Groq — activité requêtes et tokens" width="600"/>
 <img src="src/assets/screenshots/organisation/groq_limit_llama-3.1-8b-instant.png" alt="Groq — limites llama-3.1-8b-instant" width="600"/>
 </div>
