@@ -1,0 +1,122 @@
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes splashIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(12px);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03) translateY(0);
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes splashOut {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  40% {
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.06);
+  }
+}
+
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-bg, #0f1117);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+/* Ligne scanline façon CRT */
+.splash-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 50%, rgba(99, 102, 241, 0.03) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Trait lumineux qui descend */
+.splash-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary, #6366f1),
+    transparent
+  );
+  animation: scanline 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.splash-logo {
+  width: clamp(120px, 35vw, 200px);
+  height: auto;
+  animation: splashIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.splash-prompt {
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  color: var(--color-primary, #6366f1);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: splashIn 4s 1.5s forwards;
+}
+
+.splash-prompt span {
+  display: inline-block;
+  width: 8px;
+}
+
+.splash-exit {
+  animation: splashOut 0.9s ease forwards;
+}
+
+.splash-exit .splash-logo,
+.splash-exit .splash-prompt {
+  animation: none;
+}

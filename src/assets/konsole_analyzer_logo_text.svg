@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background: cream white -->
+  <rect width="200" height="200" fill="#f5f5ec"/>
+  
+  <!-- Three vertical bars: signal strength style -->
+  <!-- Bar heights: 40%, 100%, 70% of available space -->
+  <!-- Available bar area: 100px (from y=50 to y=150) -->
+  <!-- Bar width: 28px, gap: 12px -->
+  
+  <!-- Left bar (40%): 40px height, centered at y=130 -->
+  <rect x="46" y="110" width="28" height="40" rx="4" fill="#cc532b"/>
+  
+  <!-- Middle bar (100%): 100px height, centered at y=90 -->
+  <rect x="86" y="50" width="28" height="100" rx="4" fill="#cc532b"/>
+  
+  <!-- Right bar (70%): 70px height, centered at y=105 -->
+  <rect x="126" y="80" width="28" height="70" rx="4" fill="#cc532b"/>
+  
+  <!-- Text: Konsole analyzer -->
+  <text x="100" y="175" 
+        font-family="'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif" 
+        font-size="16" 
+        font-weight="500" 
+        fill="#cc532b" 
+        text-anchor="middle" 
+        letter-spacing="0.5">Konsole analyzer</text>
+</svg>

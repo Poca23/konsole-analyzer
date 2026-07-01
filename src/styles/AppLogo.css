@@ -1,0 +1,19 @@
+.app-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.app-logo img {
+  width: clamp(28px, 5vw, 40px);
+  height: auto;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.app-logo img:hover {
+  opacity: 0.8;
+}
+
+.app-logo--full img {
+  width: clamp(100px, 30vw, 160px);
+}
