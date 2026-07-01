@@ -3,11 +3,11 @@
 Application web qui analyse un site d'entreprise et génère une fiche enrichie :
 nom, logo, secteur, taille, tech stack, signaux GTM et score de pertinence commerciale (0–100).
 
-Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **Claire Naudin**, développeuse.
+Projet réalisé dans le cadre du processus de recrutement chez **[Youno](https://youno.fr)** par **Claire Naudin**, développeuse.
 
 À l'issue du test technique, j'ai continué à utiliser cet outil comme outil métier personnel — il me permet de mieux identifier les entreprises les plus adaptées à mon profil avant d'envoyer une candidature.
 
-> **Merci à l'équipe Youno** pour leur autorisation de publication de ce projet. 🙏
+> **Merci à l'équipe [Youno](https://youno.fr)** pour leur autorisation de publication de ce projet. 🙏
 
 **Stack :** React · Vercel Serverless · Groq (LLaMA 3.1) · Clearbit · Vite · Jest · Vitest
 
@@ -19,14 +19,22 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 
 ---
 
-## Organisation
+## Sommaire
 
-<div align="center">
-<img src="src/assets/screenshots/organisation/miro_planning_agile.png" alt="Planning Miro" width="600"/>
-<img src="src/assets/screenshots/organisation/terminal.png" alt="Terminal" width="600"/>
-<img src="src/assets/screenshots/organisation/groq_activity_requests_tokens.png" alt="Groq activité" width="600"/>
-<img src="src/assets/screenshots/organisation/groq_limit_llama-3.1-8b-instant.png" alt="Groq limites" width="600"/>
-</div>
+1. [Interface](#interface)
+2. [Fonctionnement](#fonctionnement)
+3. [Structure du projet](#structure-du-projet)
+4. [Installation](#installation)
+5. [Développement local](#développement-local)
+6. [Tests](#tests)
+7. [Scoring](#scoring)
+8. [Déploiement](#déploiement)
+9. [Sécurité](#sécurité)
+10. [Choix techniques](#choix-techniques)
+11. [Problèmes rencontrés](#problèmes-rencontrés)
+12. [Limites connues](#limites-connues)
+13. [Améliorations prioritaires](#améliorations-prioritaires-en-production)
+14. [Organisation](#organisation)
 
 ---
 
@@ -34,67 +42,23 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 
 <div align="center">
 
-### 🖥️ Desktop & 📱 Mobile
-
-<!-- Ajout : déposer les screenshots dans src/assets/screenshots/devices/desktop/ et src/assets/screenshots/devices/mobile/ -->
+### 🖥️ Desktop
 
 <table>
   <tr>
     <td align="center"><img src="src/assets/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app.webp" alt="Desktop home" width="400"/></td>
-    <td align="center"><img src="src/assets/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app_2.webp" alt="Desktop home" width="400"/></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="src/assets/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app.webp" alt="Mobile home" width="200"/></td>
-    <td align="center"><img src="src/assets/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app_2.webp" alt="Mobile home" width="200"/></td>
+    <td align="center"><img src="src/assets/screenshots/devices/desktop/Macbook-Air-konsole-analyzer-gamma.vercel.app_2.webp" alt="Desktop résultat" width="400"/></td>
   </tr>
 </table>
 
-</div>
+### 📱 Mobile
 
----
-
-## Tests live
-
-<!-- Ajout : déposer les screenshots dans src/assets/screenshots/analysis/ — formats .png et .webp acceptés -->
-<!-- Pour ajouter une image : copier une ligne <img> et adapter le nom de fichier -->
-
-<div align="center">
-
-![youno.fr](src/assets/screenshots/analysis/analyse_youno.png)
-![stripe.com](src/assets/screenshots/analysis/analyze_stripe.png)
-![notion.so](src/assets/screenshots/analysis/analyze_notion.png)
-![lemlist.com](src/assets/screenshots/analysis/analyse_lemlist.png)
-![localhost](src/assets/screenshots/analysis/analyse_localhost.png)
-![gmail.com](src/assets/screenshots/analysis/analyze_gmail.png)
-![loom.com](src/assets/screenshots/analysis/analyze_loom.png)
-![favicon](src/assets/screenshots/analysis/analyse_favicon.png)
-
-</div>
-
-| URL         | Nom     | Secteur | Taille            | Score            |
-| ----------- | ------- | ------- | ----------------- | ---------------- |
-| youno.fr    | Youno   | Agence  | startup           | 70–80/100        |
-| stripe.com  | Stripe  | Fintech | grande entreprise | 40/100           |
-| notion.so   | Notion  | SaaS    | grande entreprise | 85/100           |
-| lemlist.com | lemlist | SaaS    | startup           | 100/100          |
-| localhost   | —       | —       | —                 | Erreur propre ✅ |
-
----
-
-## Tests unitaires
-
-<div align="center">
-
-| Outil             | Suites | Tests  |
-| ----------------- | ------ | ------ |
-| Jest — backend    | 6      | 37     |
-| Vitest — frontend | 8      | 29     |
-| **Total**         | **14** | **66** |
-
-<!-- Ajout : déposer les screenshots dans src/assets/screenshots/tests/ -->
-
-<img src="src/assets/screenshots/tests/tests_backend.png" alt="Tests backend" width="600"/>
-<img src="src/assets/screenshots/tests/tests_frontend.png" alt="Tests frontend" width="600"/>
+<table>
+  <tr>
+    <td align="center"><img src="src/assets/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app.webp" alt="Mobile home" width="200"/></td>
+    <td align="center"><img src="src/assets/screenshots/devices/mobile/iPhone-13-PRO-konsole-analyzer-gamma.vercel.app_2.webp" alt="Mobile résultat" width="200"/></td>
+  </tr>
+</table>
 
 </div>
 
@@ -103,9 +67,7 @@ Projet réalisé dans le cadre du processus de recrutement chez **Youno** par **
 ## Fonctionnement
 
 ```
-
 URL saisie → validation → scraping HTML → enrichissement Clearbit → analyse LLM Groq → scoring → fiche affichée
-
 ```
 
 1. L'utilisateur saisit une URL (`youno.fr`, `stripe.com`…)
@@ -121,34 +83,32 @@ URL saisie → validation → scraping HTML → enrichissement Clearbit → anal
 ## Structure du projet
 
 ```
-
 konsole-analyzer/
 │
 ├── api/
-│ ├── analyze.js ← endpoint Vercel Serverless
-│ └── package.json ← force CommonJS dans api/
+│   ├── analyze.js              ← endpoint Vercel Serverless
+│   └── package.json            ← force CommonJS dans api/
 │
-├── functions/ ← modules backend + tests Jest
-│ ├── src/
-│ │ ├── validator.js
-│ │ ├── scraper.js
-│ │ ├── clearbit.js
-│ │ ├── groq.js
-│ │ ├── scoring.js
-│ │ └── analyzer.js
-│ └── **tests**/ ← 6 fichiers — 37 tests Jest
+├── functions/                  ← modules backend + tests Jest
+│   ├── src/
+│   │   ├── validator.js
+│   │   ├── scraper.js
+│   │   ├── clearbit.js
+│   │   ├── groq.js
+│   │   ├── scoring.js
+│   │   └── analyzer.js
+│   └── __tests__/              ← 6 fichiers — 37 tests Jest
 │
-├── src/ ← frontend React
-│ ├── components/
-│ ├── hooks/
-│ ├── utils/
-│ ├── styles/ ← 9 fichiers CSS natif mobile-first
-│ └── **tests**/ ← 8 fichiers — 29 tests Vitest
+├── src/                        ← frontend React
+│   ├── components/
+│   ├── hooks/
+│   ├── utils/
+│   ├── styles/                 ← 9 fichiers CSS natif mobile-first
+│   └── __tests__/              ← 8 fichiers — 29 tests Vitest
 │
 ├── dist/
 ├── vercel.json
-└── .env.local ← non commité
-
+└── .env.local                  ← non commité
 ```
 
 ---
@@ -171,7 +131,7 @@ npm install
 cd functions && npm install && cd ..
 ```
 
-### Configurer `.env.local`
+Créer `.env.local` à la racine :
 
 ```
 VITE_API_URL=https://konsole-analyzer-gamma.vercel.app
@@ -184,8 +144,10 @@ VITE_API_URL=https://konsole-analyzer-gamma.vercel.app
 ## Développement local
 
 ```bash
+# Lancer le frontend
 npm run dev
 
+# Tester l'API en live
 curl -X POST https://konsole-analyzer-gamma.vercel.app/analyze \
   -H "Content-Type: application/json" \
   -d '{"url": "youno.fr"}'
@@ -195,6 +157,18 @@ curl -X POST https://konsole-analyzer-gamma.vercel.app/analyze \
 
 ## Tests
 
+### Résultats
+
+| Outil             | Suites | Tests  |
+| ----------------- | ------ | ------ |
+| Jest — backend    | 6      | 37     |
+| Vitest — frontend | 8      | 29     |
+| **Total**         | **14** | **66** |
+
+> Tous les tests sont écrits avant le code (TDD strict).
+
+### Lancer les tests
+
 ```bash
 # Backend (Jest)
 cd functions && npx jest
@@ -203,19 +177,47 @@ cd functions && npx jest
 npm run test
 ```
 
-> Tous les tests sont écrits avant le code (TDD strict).
+### Captures
+
+<div align="center">
+<img src="src/assets/screenshots/tests/tests_backend.png" alt="Tests backend" width="600"/>
+<img src="src/assets/screenshots/tests/tests_frontend.png" alt="Tests frontend" width="600"/>
+</div>
+
+---
+
+## Tests live
+
+| URL         | Nom     | Secteur | Taille            | Score            |
+| ----------- | ------- | ------- | ----------------- | ---------------- |
+| youno.fr    | Youno   | Agence  | startup           | 70–80/100        |
+| stripe.com  | Stripe  | Fintech | grande entreprise | 40/100           |
+| notion.so   | Notion  | SaaS    | grande entreprise | 85/100           |
+| lemlist.com | lemlist | SaaS    | startup           | 100/100          |
+| localhost   | —       | —       | —                 | Erreur propre ✅ |
+
+<div align="center">
+<img src="src/assets/screenshots/analysis/analyse_youno.png" alt="youno.fr" width="600"/>
+<img src="src/assets/screenshots/analysis/analyze_stripe.png" alt="stripe.com" width="600"/>
+<img src="src/assets/screenshots/analysis/analyze_notion.png" alt="notion.so" width="600"/>
+<img src="src/assets/screenshots/analysis/analyse_lemlist.png" alt="lemlist.com" width="600"/>
+<img src="src/assets/screenshots/analysis/analyse_localhost.png" alt="localhost — erreur propre" width="600"/>
+<img src="src/assets/screenshots/analysis/analyze_gmail.png" alt="gmail.com" width="600"/>
+<img src="src/assets/screenshots/analysis/analyze_loom.png" alt="loom.com" width="600"/>
+<img src="src/assets/screenshots/analysis/analyse_favicon.png" alt="favicon" width="600"/>
+</div>
 
 ---
 
 ## Scoring
 
-| Critère         | Points max | Détail                                     |
-| --------------- | ---------- | ------------------------------------------ |
-| Secteur tech    | 30         | SaaS, Fintech, Agence, Consulting…         |
-| Signaux B2B     | 30         | b2b, saas, crm, revops, outbound, gtm…     |
-| Taille          | 20         | startup = 20, PME = 15                     |
-| Langue anglaise | 10         | site en `en`                               |
-| Stack tech      | 20         | React, Node, Docker… ← critère ajouté v1.1 |
+| Critère         | Points max | Détail                                 |
+| --------------- | ---------- | -------------------------------------- |
+| Secteur tech    | 30         | SaaS, Fintech, Agence, Consulting…     |
+| Signaux B2B     | 30         | b2b, saas, crm, revops, outbound, gtm… |
+| Taille          | 20         | startup = 20, PME = 15                 |
+| Langue anglaise | 10         | site en `en`                           |
+| Stack tech      | 20         | React, Node, Docker… ← ajouté en v1.1  |
 
 | Score | Label               |
 | ----- | ------------------- |
@@ -235,12 +237,11 @@ npm run build
 git push origin main
 ```
 
----
-
 <div align="center">
 <img src="src/assets/screenshots/deployement/vercel_deployements.png" alt="Vercel déploiements" width="600"/>
 <img src="src/assets/screenshots/deployement/deploy_project_vercel.png" alt="Vercel projet" width="600"/>
 </div>
+
 ---
 
 ## Sécurité
@@ -299,6 +300,17 @@ git push origin main
 
 ---
 
+## Organisation
+
+<div align="center">
+<img src="src/assets/screenshots/organisation/miro_planning_agile.png" alt="Planning Miro" width="600"/>
+<img src="src/assets/screenshots/organisation/terminal.png" alt="Terminal" width="600"/>
+<img src="src/assets/screenshots/organisation/groq_activity_requests_tokens.png" alt="Groq — activité requêtes et tokens" width="600"/>
+<img src="src/assets/screenshots/organisation/groq_limit_llama-3.1-8b-instant.png" alt="Groq — limites llama-3.1-8b-instant" width="600"/>
+</div>
+
+---
+
 ## Auteur
 
 **Claire Naudin** — Développeuse
@@ -307,4 +319,4 @@ git push origin main
 
 Projet réalisé dans le cadre du processus de recrutement chez [Youno](https://youno.fr), puis utilisé comme outil métier personnel pour identifier les entreprises les plus pertinentes lors de mes recherches d'emploi.
 
-Merci à l'équipe Youno pour leur autorisation de publication. 🙏
+Merci à l'équipe [Youno](https://youno.fr) pour leur autorisation de publication. 🙏
